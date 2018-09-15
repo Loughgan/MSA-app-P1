@@ -8,10 +8,10 @@ export const Header: React.StatelessComponent<{}> = () => {
                 <Toolbar>
                     <Typography variant="display2" color="inherit">
                         <Link style={{color: "white"}} to="/">Logan's Lyrical Library</Link>
-                        <Link style={{color: "white"}} to="/FirstComponent"> | About | </Link>
-                        <Link style={{color: "white"}} to="/SecondComponent"> All My Ex's Live In Texas </Link>
                     </Typography>
                 </Toolbar>
             </AppBar>
+            //            <Link style={{color: "white"}} to="/FirstComponent"> | About | </Link>
+            //            <Link style={{color: "white"}} to="/SecondComponent"> All My Ex's Live In Texas </Link>            
     );
 }

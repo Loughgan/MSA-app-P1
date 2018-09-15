@@ -18,6 +18,10 @@
   font-size: 1.5em;
 }
 
+.display-linebreak {
+  white-space: pre-line;
+}
+
 .App-intro {
   font-size: large;
 }

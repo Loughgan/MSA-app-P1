@@ -1,9 +1,11 @@
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import * as React from 'react';
+import * as reactRouterDom from 'react-router-dom';
 // import { withStyles } from '@material-ui/core/styles';
 // import MenuItem from '@material-ui/core/MenuItem';
-import './App.css';
+import './App.css'
+import { Header } from './components/Header';
 
 interface IState{
   artist: any,
@@ -35,44 +37,44 @@ export default class App extends React.Component<{}, IState> {
     const API = await fetch(`https://orion.apiseeds.com/api/music/lyric/${artist}/${song}?apikey=snMiaZzHvKn3lVDz6SArWbItrgTiBdhBluLZ5o3ay4QOZdP2wWQsjuaDLUIzlRkB`);
     const data = await API.json();
     // tslint:disable-next-line:no-console
-    console.log(data);
+    console.log(data.result.track.text);
     this.setState({
-      lyrics: data.result.track.text
+      lyrics: data.result.track.text// .replace(/\n/gi, "<br/>")
     });
-
   }
 
   public render() {
     return (
-      <div className="container-fluid">
-      <div className="centreText">
-        {/* React components must have a wrapper node/element */}
-        <form onSubmit={this.getRate}>
-        <TextField
-          // id="with-placeholder"
-          label="Enter the Artist's Name"
-          name = "newArtist"
-          // value={this.state.artist}
-          // onChange={this.changeArtist(":(")}
-          placeholder="Artist Name"
-          margin="normal"
-        />
-        <TextField
-          // id="with-placeholder"
-          label="Enter the Song's Name"
-          name = "newSong"
-          // value={this.state.song}
-          placeholder="Song Name"
-          margin="normal"
-        />
-        <Button variant="contained" type="submit" color="secondary">
-        Submit
-      </Button>
-      </form>
-      <p>{this.state.artist}</p>
-      <p>{this.state.lyrics}</p>
-      </div>
-    </div>
+      <reactRouterDom.BrowserRouter>
+        <div>
+        <Header />
+        <div className="container-fluid">
+        <div className="centreText">
+          {/* React components must have a wrapper node/element */}
+          <form onSubmit={this.getRate}>
+            <TextField
+              label="Enter the Artist's Name"
+              name = "newArtist"
+              placeholder="Artist Name"
+              margin="normal"
+            />
+            <TextField
+              label="Enter the Song's Name"
+              name = "newSong"
+              placeholder="Song Name"
+              margin="normal"
+            />
+            <Button variant="contained" type="submit" color="secondary">
+            Submit
+            </Button>
+          </form>
+          <div className="display-linebreak">
+          <p>{this.state.lyrics}</p>
+          </div>
+        </div>
+        </div>
+        </div>
+      </reactRouterDom.BrowserRouter>
     );
   }
 }
