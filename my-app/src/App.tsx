@@ -5,18 +5,41 @@ import * as React from 'react';
 // import MenuItem from '@material-ui/core/MenuItem';
 import './App.css';
 
+interface IState{
+  artist: any,
+  song: any,
+  lyrics: any,
+}
 
-
-export default class App extends React.Component<{}> {
+export default class App extends React.Component<{}, IState> {
   
-  public state = {
-    artist: '',
-    lyrics: '',
-    song: '',
-  };
+  constructor (props:any){
+    super(props);
+    this.state = {
+    artist: "",
+    lyrics: "",
+    song: ""
+    }
+  }
 
-  public changeArtist(value: string){
-    this.setState({artist: value});
+  // public changeArtist(value: string){
+  //  this.setState({artist: value});
+  // }
+
+  public getRate = async (e: any) => {
+    e.preventDefault();
+    const artist = e.target.elements.newArtist.value;
+    const song = e.target.elements.newSong.value;
+    // tslint:disable-next-line:no-console
+    console.log(artist);
+    const API = await fetch(`https://orion.apiseeds.com/api/music/lyric/${artist}/${song}?apikey=snMiaZzHvKn3lVDz6SArWbItrgTiBdhBluLZ5o3ay4QOZdP2wWQsjuaDLUIzlRkB`);
+    const data = await API.json();
+    // tslint:disable-next-line:no-console
+    console.log(data);
+    this.setState({
+      lyrics: data.result.track.text
+    });
+
   }
 
   public render() {
@@ -24,25 +47,30 @@ export default class App extends React.Component<{}> {
       <div className="container-fluid">
       <div className="centreText">
         {/* React components must have a wrapper node/element */}
-        <h1>{this.state.artist}</h1>
+        <form onSubmit={this.getRate}>
         <TextField
-          id="with-placeholder"
+          // id="with-placeholder"
           label="Enter the Artist's Name"
-          value={this.state.artist}
+          name = "newArtist"
+          // value={this.state.artist}
           // onChange={this.changeArtist(":(")}
           placeholder="Artist Name"
           margin="normal"
         />
         <TextField
-          id="with-placeholder"
+          // id="with-placeholder"
           label="Enter the Song's Name"
-          value={this.state.song}
+          name = "newSong"
+          // value={this.state.song}
           placeholder="Song Name"
           margin="normal"
         />
-        <Button variant="contained" color="secondary">
-        Secondary
+        <Button variant="contained" type="submit" color="secondary">
+        Submit
       </Button>
+      </form>
+      <p>{this.state.artist}</p>
+      <p>{this.state.lyrics}</p>
       </div>
     </div>
     );
