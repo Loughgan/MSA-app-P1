@@ -11,8 +11,6 @@ export const Header: React.StatelessComponent<{}> = () => {
                     </Typography>
                 </Toolbar>
             </AppBar>
-            // <Link style={{color: "white"}} to="/">Logan's Lyrical Library</Link>
-            //            <Link style={{color: "white"}} to="/FirstComponent"> | About | </Link>
-            //            <Link style={{color: "white"}} to="/SecondComponent"> All My Ex's Live In Texas </Link>            
+            // <Link style={{color: "white"}} to="/">Logan's Lyrical Library</Link>          
     );
 }

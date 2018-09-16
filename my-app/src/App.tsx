@@ -32,21 +32,30 @@ export default class App extends React.Component<{}, IState> {
     console.log(theArtist);
     if(theArtist && theSong){
       const API = await fetch(`https://orion.apiseeds.com/api/music/lyric/${theArtist}/${theSong}?apikey=snMiaZzHvKn3lVDz6SArWbItrgTiBdhBluLZ5o3ay4QOZdP2wWQsjuaDLUIzlRkB`);
-      const data = await API.json();
-      // tslint:disable-next-line:no-console
-      // console.log(data.result.track.text);
+      try {
+        const data = await API.json();
+        // tslint:disable-next-line:no-console
+        // console.log(data.result.track.text);
 
-      if(data.result){// (data.result.artist.name && data.result.track.text && data.result.track.name){
-        this.setState({
-          artist: data.result.artist.name,
-          lyrics: data.result.track.text,// .replace(/\n/gi, "<br/>"
-          song: data.result.track.name
-        });
+        if(data.result){// (data.result.artist.name && data.result.track.text && data.result.track.name){
+          this.setState({
+            artist: data.result.artist.name,
+            lyrics: data.result.track.text,// .replace(/\n/gi, "<br/>"
+            song: data.result.track.name
+          });
+        }
+        else {
+          this.setState({
+            artist: undefined,
+            lyrics: "ARTIST AND/OR SONG NOT RECOGNIZED. PLEASE CHECK SPELLING AND TRY AGAIN.\nIF YOU ARE CERTAIN IT IS CORRECT, LOGAN MAY NOT HAVE THE LYRICS IN HIS LIBRARY.",
+            song: undefined
+          })
+        }
       }
-      else {
+      catch (e) {
         this.setState({
           artist: undefined,
-          lyrics: "ARTIST AND/OR SONG NOT RECOGNIZED. PLEASE CHECK SPELLING AND TRY AGAIN.\nIF YOU ARE CERTAIN IT IS CORRECT, LOGAN MAY NOT HAVE THE LYRICS IN HIS LIBRARY.",
+          lyrics: "ERROR HAS OCCURED\nPLEASE STICK TO ARTIST NAMES AND SONG NAMES",
           song: undefined
         })
       }
@@ -88,7 +97,7 @@ export default class App extends React.Component<{}, IState> {
             />
             <div>
             <Button variant="contained" type="submit" color="secondary">
-            Submit
+            FIND LYRICS
             </Button>
             </div>
           </form>
