@@ -22,6 +22,10 @@
   white-space: pre-line;
 }
 
+.centreText {
+  text-align: center;
+}
+
 .App-intro {
   font-size: large;
 }
